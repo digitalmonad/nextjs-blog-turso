@@ -20,7 +20,7 @@ export default function Navigation() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="text-sm font-medium hover:text-muted-foreground text-foreground transition-colors duration-200"
               >
                 {item.name}
               </Link>
