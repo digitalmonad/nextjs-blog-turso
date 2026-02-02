@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { posts, categories } from "@/lib/db/schema";
 import Link from "next/link";
 
@@ -19,8 +19,9 @@ export async function SectionPostsFeatured() {
       category: categories.name,
     })
     .from(posts)
-    .leftJoin(categories, eq(posts.category, categories.id)) // nebo eq(posts.categoryId, categories.id) podle názvu sloupce
-    .limit(4);
+    .leftJoin(categories, eq(posts.category, categories.id))
+    .limit(4)
+    .orderBy(desc(posts.createdAt));
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8" id="featured">
@@ -56,12 +57,14 @@ export async function SectionPostsFeatured() {
                       <CardHeader className="p-0">
                         <div className="relative">
                           <div className="w-full h-48 relative">
-                            <Image
-                              fill
-                              src={post.image || ""}
-                              alt={post.title}
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
+                            {post.image && (
+                              <Image
+                                fill
+                                src={post.image}
+                                alt={post.title}
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                            )}
                           </div>
 
                           <div className="absolute top-4 left-4">

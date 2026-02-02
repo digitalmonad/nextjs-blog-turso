@@ -4,15 +4,7 @@ export const navItems = [
     href: "/",
   },
   {
-    name: "Categories",
-    href: "/categories",
-  },
-  {
-    name: "About",
-    href: "/about",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
+    name: "New post",
+    href: "/posts/new",
   },
 ];
