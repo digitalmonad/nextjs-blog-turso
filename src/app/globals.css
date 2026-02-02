@@ -164,14 +164,22 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans);
+    font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
 }
 
 /* Custom Scrollbar */
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--secondary);
+}
+
+/* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -184,5 +192,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary) / 0.8;
+  background: color-mix(in srgb, var(--primary) 80%, transparent);
 }

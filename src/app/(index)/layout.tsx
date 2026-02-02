@@ -4,7 +4,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 import Navigation from "@/components/navigation";
 
-const alan = Alan_Sans({ variable: "--font-alan", subsets: ["latin"] });
+const alan = Alan_Sans({
+  variable: "--font-alan",
+  subsets: ["latin"],
+});
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -22,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${alan.variable} ${playfair.variable} antialiased`}>
+      <body
+        className={`${alan.variable} ${alan.className} ${playfair.variable} antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
