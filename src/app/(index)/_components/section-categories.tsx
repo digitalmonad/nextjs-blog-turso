@@ -38,7 +38,9 @@ export async function SectionCategories() {
                     <div className="bg-card rounded-lg p-6 text-center transition-all duration-300 hover:scale-105 border border-border/50">
                       <div className="mb-4">
                         <div
-                          dangerouslySetInnerHTML={{ __html: category.icon }}
+                          dangerouslySetInnerHTML={{
+                            __html: category.icon || "",
+                          }}
                           className="w-8 h-8 mx-auto text-primary group-hover:scale-110 transition-transform duration-300"
                         ></div>
                       </div>

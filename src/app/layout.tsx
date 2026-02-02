@@ -3,6 +3,7 @@ import { Playfair_Display, Alan_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navigation from "@/components/navigation";
+import PageTransition from "@/app/posts/[id]/page-transition";
 
 const alan = Alan_Sans({
   variable: "--font-alan",

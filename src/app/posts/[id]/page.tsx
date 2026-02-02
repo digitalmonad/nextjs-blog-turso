@@ -36,7 +36,7 @@ export default async function PostPage({ params }: Params) {
   return (
     <main className="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
       <Link
-        href="/"
+        href="/#featured"
         className="text-sm text-muted-foreground mb-6 inline-block"
       >
         ← Back
