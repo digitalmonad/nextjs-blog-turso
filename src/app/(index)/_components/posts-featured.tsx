@@ -1,12 +1,26 @@
-import { featuredPosts } from "@/lib/data/mock-posts";
 import * as motion from "motion/react-client";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
+import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
+import { posts, categories } from "@/lib/db/schema";
 
-export default function FeaturedSection() {
-  const posts = featuredPosts;
+export default async function FeaturedSection() {
+  const featuredPosts = await db
+    .select({
+      id: posts.id,
+      title: posts.title,
+      excerpt: posts.excerpt,
+      image: posts.image,
+      createdAt: posts.createdAt,
+      category: categories.name,
+    })
+    .from(posts)
+    .leftJoin(categories, eq(posts.category, categories.id)) // nebo eq(posts.categoryId, categories.id) podle názvu sloupce
+    .limit(4);
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -27,56 +41,58 @@ export default function FeaturedSection() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {posts.map((post, index) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <Card className="group cursor-pointer overflow-hidden transition-all duration-300 bg-card/50 backdrop-blur-xs py-0">
-                <CardHeader className="p-0">
-                  <div className="relative">
-                    <div className="w-full h-48 relative">
-                      <Image
-                        fill
-                        src={post.image}
-                        alt={post.title}
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
+          {featuredPosts
+            ? featuredPosts.map((post, index) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Card className="group cursor-pointer overflow-hidden transition-all duration-300 bg-card/50 backdrop-blur-xs py-0">
+                    <CardHeader className="p-0">
+                      <div className="relative">
+                        <div className="w-full h-48 relative">
+                          <Image
+                            fill
+                            src={post.image || ""}
+                            alt={post.title}
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </div>
 
-                    <div className="absolute top-4 left-4">
-                      <Badge
-                        variant="secondary"
-                        className="bg-background/80 backdrop-blur-xs"
-                      >
-                        {post.category}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
+                        <div className="absolute top-4 left-4">
+                          <Badge
+                            variant="secondary"
+                            className="bg-background/80 backdrop-blur-xs"
+                          >
+                            {post.category}
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardHeader>
 
-                <CardContent className="p-6">
-                  <div className="flex items-center text-sm text-muted-foreground mb-3">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {post.date}
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
-                    {post.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center text-primary font-medium group-hover:underline">
-                    Read more{" "}
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                    <CardContent className="p-6">
+                      <div className="flex items-center text-sm text-muted-foreground mb-3">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {post.createdAt}
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-4 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center text-primary font-medium group-hover:underline">
+                        Read more{" "}
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))
+            : null}
         </div>
       </div>
     </section>

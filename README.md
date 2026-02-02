@@ -16,7 +16,7 @@ Or set the remote Turso connection URL and token when using Turso Cloud.
 
 For local development with Turso and Drizzle run these steps (using pnpm):
 
-1. Generate Drizzle client
+1. Generate migration scripts
 
 ```bash
 pnpm run db:generate

@@ -9,7 +9,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeaturedSection />
-        <CategoriesSection />
+        {/* <CategoriesSection /> */}
         <Footer />
       </main>
     </div>

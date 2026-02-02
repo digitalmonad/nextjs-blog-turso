@@ -10,6 +10,7 @@
     "db:local": "turso dev --db-file src/lib/db/local-dev/local-db.db",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "pnpm tsx src/lib/db/migrate.ts",
+    "db:seed": "pnpm tsx src/lib/db/seed.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
