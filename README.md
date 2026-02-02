@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## About this project
 
-## Getting Started
+This repository is a small example mini-blog application created to experiment with setting up a Turso database (local `turso dev` and Turso Cloud [www.turso.tech](https://www.turso.tech)). It's intended for learning and testing local development, migrations, and connection handling rather than production use.
 
-First, run the development server:
+## Local development workflow
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project requires the Turso CLI for local development. Install instructions are available at https://docs.turso.tech/cli/installation
+
+Also create a `.env` file in the project root and set `TURSO_CONNECTION_URL` (and `TURSO_AUTH_TOKEN` for cloud). For local development with `turso dev`, use the local server URL printed by the CLI, for example:
+
+```
+TURSO_CONNECTION_URL=http://127.0.0.1:8080
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or set the remote Turso connection URL and token when using Turso Cloud.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For local development with Turso and Drizzle run these steps (using pnpm):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Generate Drizzle client
 
-## Learn More
+```bash
+pnpm run db:generate
+```
 
-To learn more about Next.js, take a look at the following resources:
+2. Start local Turso dev server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm run db:local
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Run migrations
 
-## Deploy on Vercel
+```bash
+pnpm run db:migrate
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. (optional) To manage local Turso db run Drizzle studio in separate terminal:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm run db:studio
+```
+
+If you need to set environment variables manually, create a `.env` with `TURSO_CONNECTION_URL` (and `TURSO_AUTH_TOKEN` for cloud) or export them in your shell before running migrations.
+
+For running Nextjs:
+
+```bash
+pnpm dev
+```
