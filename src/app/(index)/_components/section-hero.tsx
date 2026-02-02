@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AppleIcon, ArrowRight, AxeIcon, LeafIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
-export function HeroSection() {
+export function SectionHero() {
   return (
     <div className="min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       <section className="max-w-7xl mx-auto">

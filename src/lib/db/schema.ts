@@ -11,9 +11,9 @@ export const posts = sqliteTable("post", {
 
   image: text("image", { length: 1000 }),
 
-  category: integer("category_id", { mode: "number" })
-    .references(() => categories.id)
-    .notNull(),
+  category: integer("category_id", { mode: "number" }).references(
+    () => categories.id,
+  ),
   createdAt: text("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -22,5 +22,6 @@ export const posts = sqliteTable("post", {
 export const categories = sqliteTable("category", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name", { length: 128 }).notNull(),
-  count: integer("count", { mode: "number" }).notNull(),
+  count: integer("count", { mode: "number" }).default(0),
+  icon: text("icon").default(""),
 });

@@ -1,1 +1,0 @@
-ALTER TABLE `post` ADD `category_id` integer NOT NULL REFERENCES category(id);

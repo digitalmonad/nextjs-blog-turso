@@ -16,6 +16,7 @@ async function main() {
       id: Number(c.id),
       name: c.name,
       count: posts.reduce((acc, i) => (c.id === i.category ? acc + 1 : acc), 0),
+      icon: c.icon,
     });
   }
 

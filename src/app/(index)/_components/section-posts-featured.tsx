@@ -7,7 +7,7 @@ import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { posts, categories } from "@/lib/db/schema";
 
-export default async function FeaturedSection() {
+export async function SectionPostsFeatured() {
   const featuredPosts = await db
     .select({
       id: posts.id,
