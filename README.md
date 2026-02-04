@@ -2,11 +2,20 @@
 
 This repository is a small example mini-blog application created to experiment with setting up a Turso database (local `turso dev` and Turso Cloud [www.turso.tech](https://www.turso.tech)). It's intended for learning and testing local development, migrations, and connection handling rather than production use.
 
+<div style="background: #222; border-radius:15px; padding: 30px; text-align: center">
+
+<img src="https://turso.tech/_next/static/media/turso-logo-illustrated.14f07c71.svg" style="height: 60px;">
+
+</div>
+
 ## Local development workflow
 
 This project requires the Turso CLI for local development. Install instructions are available at https://docs.turso.tech/cli/installation
 
-Also create a `.env` file in the project root and set `TURSO_CONNECTION_URL` (and `TURSO_AUTH_TOKEN` for cloud). For local development with `turso dev`, use the local server URL printed by the CLI, for example:
+Also create a `.env` file in the project root and set `TURSO_CONNECTION_URL` (and `TURSO_AUTH_TOKEN` for cloud).
+You can generate the token via Turso CLI, Turso Cloud API or in Turso Cloud dashboard (https://app.turso.tech/[username]/databases/[db-name]).
+
+For local development with `turso dev`, use the local server URL printed by the CLI, for example:
 
 ```
 TURSO_CONNECTION_URL=http://127.0.0.1:8080
