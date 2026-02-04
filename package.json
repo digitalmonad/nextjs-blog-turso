@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:local": "turso dev --db-file src/lib/db/local-dev/local-db.db",
+    "db:local": "turso dev --db-file src/lib/db/local.db",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "pnpm tsx src/lib/db/migrate.ts",
     "db:seed": "pnpm tsx src/lib/db/seed.ts",
