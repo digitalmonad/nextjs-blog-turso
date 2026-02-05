@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const posts = sqliteTable("post", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
@@ -14,6 +14,7 @@ export const posts = sqliteTable("post", {
   category: integer("category_id", { mode: "number" }).references(
     () => categories.id,
   ),
+  embedding: blob("embedding", { mode: "buffer" }),
   createdAt: text("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
