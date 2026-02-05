@@ -19,16 +19,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // 1. Vygeneruj embedding pro search query
+    // 1. Generate an embedding for the search query
     const queryEmbedding = await generateEmbedding(query);
     const queryBuffer = embeddingToBuffer(queryEmbedding);
 
-    // Převeď buffer na hex string pro SQL
+    // Convert the buffer to a hex string for SQL
     const embeddingHex = queryBuffer.toString("hex");
 
-    // 2. Použij native Turso vector search s cosine distance
-    // vector_distance_cos vrací distance (nižší = podobnější),
-    // takže potřebujeme: similarity = 1 - distance
+    // 2. Use native Turso vector search with cosine distance
+    // vector_distance_cos returns a distance (lower = more similar),
+    // so we need: similarity = 1 - distance
     const results = await client.execute({
       sql: `
         SELECT 
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
       args: [queryBuffer, queryBuffer, threshold, limit],
     });
 
-    // 3. Přidej category names
+    // 3. Add category names
     const resultsWithCategories = await Promise.all(
       results.rows.map(async (row: any) => {
         if (!row.categoryId) return row;

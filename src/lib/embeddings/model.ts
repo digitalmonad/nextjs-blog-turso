@@ -1,5 +1,11 @@
 // src/lib/embeddings/model.ts
 import { pipeline, env } from "@xenova/transformers";
+import { homedir } from "os";
+import { join } from "path";
+
+// Explicit cache dir so CI and local use the same predictable path
+env.cacheDir =
+  process.env.TRANSFORMERS_CACHE ?? join(homedir(), ".cache", "xenova");
 
 // Disable local model loading (use cached models)
 env.allowLocalModels = false;

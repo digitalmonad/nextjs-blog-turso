@@ -1,0 +1,32 @@
+name: embedding-pipeline
+on: [push]
+
+jobs:
+  run-embeddings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Cache Xenova model files
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/xenova
+          key: ${{ runner.os }}-xenova-model-${{ hashFiles('**/package.json') }}
+
+      - name: Generate embeddings (example)
+        env:
+          TURSO_CONNECTION_URL: ${{ secrets.TURSO_CONNECTION_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+        run: pnpm run db:embeddings
